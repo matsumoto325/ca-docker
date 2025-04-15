@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM gcr.io/nii-ap-ops/base/datascience-notebook:main-lab4.x
 
 USER root
 RUN apt update \
@@ -24,14 +24,3 @@ RUN adduser --disabled-password \
     ${NB_USER}
 WORKDIR ${HOME}
 USER ${USER}
-
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && chmod +x Miniconda3-latest-Linux-x86_64.sh \
-    && yes | sh Miniconda3-latest-Linux-x86_64.sh \
-    && rm Miniconda3-latest-Linux-x86_64.sh \
-    && conda install jupyter jupyterlab pandas scikit-learn matplotlib git
-
-# install the notebook package
-RUN pip install --no-cache --upgrade pip && \
-    pip install --no-cache notebook jupyterlab
-
