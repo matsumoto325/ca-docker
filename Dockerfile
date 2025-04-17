@@ -15,6 +15,9 @@ RUN mv /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.org \
     | sed -e '/^basicConstraints /a \\nkeyUsage = digitalSignature, cRLSign, keyCertSign\nextendedKeyUsage = serverAuth, clientAuth, codeSigning, emailProtection, timeStamping, anyExtendedKeyUsage\n' \
     | tee /etc/ssl/openssl.cnf
 
+RUN echo c.NotebookApp.terminado_settings = {'shell_command': ['/bin/bash']} \
+    >> /usr/local/lib/python3.9/site-packages/notebook_shim/tests/confs/jupyter_notebook_config.py
+
 # create user with a home directory
 ARG NB_USER
 ARG NB_UID
@@ -27,5 +30,3 @@ RUN adduser --disabled-password \
     ${NB_USER}
 WORKDIR ${HOME}
 USER ${USER}
-SHELL ["/bin/bash", "-c"]
-
