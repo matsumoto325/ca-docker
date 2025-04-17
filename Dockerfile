@@ -1,4 +1,5 @@
-FROM gcr.io/nii-ap-ops/base/datascience-notebook:main-lab4.x
+#FROM gcr.io/nii-ap-ops/base/datascience-notebook:main-lab4.x
+FROM ubuntu:24.04
 
 USER root
 RUN apt update \
@@ -6,6 +7,9 @@ RUN apt update \
         python3-dev python3-pip python3-venv nodejs npm \
         wget git build-essential cmake vim emacs-nox \
         && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook jupyterlab
 
 RUN mv /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.org \
     && cat /etc/ssl/openssl.cnf.org \
