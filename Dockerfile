@@ -5,7 +5,9 @@ RUN pip install --no-cache --upgrade pip && \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        vim \
+        python3-dev python3-pip python3-venv nodejs npm \
+        wget git build-essential cmake vim emacs-nox \
+        libssl-dev \ 
         && rm -rf /var/lib/apt/lists/*
 
 RUN mv /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.org \
@@ -25,3 +27,5 @@ RUN adduser --disabled-password \
     ${NB_USER}
 WORKDIR ${HOME}
 USER ${USER}
+SHELL ["/bin/bash", "-c"]
+
